@@ -1,0 +1,20 @@
+@tailwind base;@tailwind components;@tailwind utilities;
+:root{--d:0;--ac:color-mix(in srgb,#ff7ad9 calc((1 - var(--d))*100%),#9a1226);--ac2:color-mix(in srgb,#5ef2ff calc((1 - var(--d))*100%),#6d7a5c);--bg:color-mix(in srgb,#0b0720 calc((1 - var(--d))*100%),#070304)}
+html,body{margin:0;background:var(--bg);color:#f3e9ff;font-family:'DotGothic16',monospace;min-height:100dvh;transition:background 3s}
+body{background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:34px 34px;background-attachment:fixed}
+#root{min-height:100dvh}
+a{color:var(--ac);text-decoration:none}a:hover{text-shadow:0 0 10px var(--ac)}
+.glass{background:#ffffff0d;border:1px solid color-mix(in srgb,var(--ac) 45%,transparent);border-radius:18px;padding:1.2rem;box-shadow:0 0 calc(30px*(1 - var(--d)*.6)) color-mix(in srgb,var(--ac) 30%,transparent)}
+.btn{font-family:inherit;font-size:1.05rem;color:#0b0720;background:var(--ac);border:0;border-radius:999px;padding:.6rem 1.4rem;cursor:pointer;box-shadow:3px 3px 0 var(--ac2)}
+.btn:hover{transform:translate(-1px,-1px)}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--ac2);outline-offset:3px}
+input{font-family:inherit;background:#0006;color:#fff;border:1px solid var(--ac);border-radius:10px;padding:.5rem .8rem}
+.glow{color:var(--ac);text-shadow:0 0 14px var(--ac)}.dim{opacity:.55}
+.scan{position:fixed;inset:0;pointer-events:none;z-index:50;background:repeating-linear-gradient(#0000 0 2px,#0000002a 3px);opacity:calc(var(--d)*.9)}
+.vig{position:fixed;inset:0;pointer-events:none;z-index:49;background:radial-gradient(circle,transparent calc(80% - var(--d)*45%),#000 130%);opacity:var(--d)}
+@keyframes fl{0%,100%{opacity:1}50%{opacity:.82}93%{opacity:.4}}@keyframes sh{0%,100%{transform:none}50%{transform:translate(1px,-1px) skewX(1deg)}}
+[data-dread="2"] .glow,[data-dread="3"] .glow{animation:fl 6s infinite}[data-dread="3"] .shake{animation:sh .5s steps(2) infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}.bob{animation:bob 4s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(60% 40% at 50% 0%,color-mix(in srgb,var(--ac) 22%,transparent),transparent)}
+.petal{position:fixed;top:-2rem;color:var(--ac);opacity:.5;pointer-events:none;animation:petal linear infinite;z-index:1}
+@keyframes petal{to{transform:translate(60px,110vh) rotate(360deg)}}

@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16
+    environment: { POSTGRES_USER: uwu, POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-password}", POSTGRES_DB: uwu }
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U uwu"], interval: 3s, retries: 20 }
+  backend:
+    build: ./backend
+    env_file: .env
+    environment:
+      # Docker services communicate through the Compose network, where the
+      # PostgreSQL host is `db`; reuse its password to avoid configuration drift.
+      DATABASE_URL: "postgresql+asyncpg://uwu:${POSTGRES_PASSWORD:-password}@db:5432/uwu"
+    depends_on: { db: { condition: service_healthy } }
+    ports: ["8000:8000"]
+  frontend:
+    build: ./frontend
+    environment: { VITE_PROXY: "http://backend:8000" }
+    ports: ["5173:5173"]
+    depends_on: [backend]
+volumes: { pgdata: {} }
